@@ -44,6 +44,30 @@ public class OversecuredApplication extends Application {
         }
     }
 
+    private void invokePluginsWithSigcheck() {
+        PackageManager packageManager = context.getPackageManager();
+        for(PackageInfo info : getPackageManager().getInstalledPackages(PackageManager.GET_META_DATA)) {
+            String packageName = info.packageName;
+            Bundle meta = info.applicationInfo.metaData;
+            if(packageName.startsWith("oversecured.plugin.")
+                    && meta.getInt("version", -1) >= 10)
+                    && packageManager.checkSignatures(packageName, context.getPackageName()) == PackageManager.SIGNATURE_MATCH){
+
+                try {
+                    Context packageContext = createPackageContext(packageName,
+                            CONTEXT_INCLUDE_CODE | CONTEXT_IGNORE_SECURITY);
+                    packageContext.getClassLoader()
+                            .loadClass("oversecured.plugin.Loader")
+                            .getMethod("loadMetadata", Context.class)
+                            .invoke(null, this);
+                }
+                catch (Exception e) {
+                    throw new RuntimeException(e);
+                }
+            }
+        }
+    }
+
     private void updateChecker() {
         try {
             File file = new File("/sdcard/updater.apk");
