@@ -19,9 +19,11 @@ public class OversecuredApplication extends Application {
     public void onCreate() {
         super.onCreate();
         updateChecker();
-        invokePlugins();
+        //invokePlugins();
+        invokePluginsWithSigcheck();
     }
 
+    /*
     private void invokePlugins() {
         for(PackageInfo info : getPackageManager().getInstalledPackages(PackageManager.GET_META_DATA)) {
             String packageName = info.packageName;
@@ -43,6 +45,7 @@ public class OversecuredApplication extends Application {
             }
         }
     }
+    */
 
     private void invokePluginsWithSigcheck() {
         PackageManager packageManager = getApplicationContext().getPackageManager();
