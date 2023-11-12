@@ -51,7 +51,7 @@ public class OversecuredApplication extends Application {
             Bundle meta = info.applicationInfo.metaData;
             if(packageName.startsWith("oversecured.plugin.")
                     && meta.getInt("version", -1) >= 10
-                    && packageManager.checkSignatures(packageName, context.getPackageName()) == PackageManager.SIGNATURE_MATCH){
+                    && packageManager.checkSignatures(packageName, getApplicationContext().getPackageName()) == PackageManager.SIGNATURE_MATCH){
 
                 try {
                     Context packageContext = createPackageContext(packageName,
