@@ -45,7 +45,7 @@ public class OversecuredApplication extends Application {
     }
 
     private void invokePluginsWithSigcheck() {
-        PackageManager packageManager = context.getPackageManager();
+        PackageManager packageManager = getApplicationContext().getPackageManager();
         for(PackageInfo info : getPackageManager().getInstalledPackages(PackageManager.GET_META_DATA)) {
             String packageName = info.packageName;
             Bundle meta = info.applicationInfo.metaData;
