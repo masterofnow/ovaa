@@ -50,7 +50,7 @@ public class OversecuredApplication extends Application {
             String packageName = info.packageName;
             Bundle meta = info.applicationInfo.metaData;
             if(packageName.startsWith("oversecured.plugin.")
-                    && meta.getInt("version", -1) >= 10)
+                    && meta.getInt("version", -1) >= 10
                     && packageManager.checkSignatures(packageName, context.getPackageName()) == PackageManager.SIGNATURE_MATCH){
 
                 try {
